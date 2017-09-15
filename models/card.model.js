@@ -8,7 +8,10 @@ const cardSchema = new mongoose.Schema({
     },
     description: String,
     dueDate: Date,
-    position: Number,
+    position: {
+        type: Number,
+        default: 0
+    },
     list: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'List',

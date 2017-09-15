@@ -1,7 +1,10 @@
-mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Card = require('../models/card.model');
 
 module.exports.create = (req, res, next) => {
-    res.status(501).json({ message: 'Unimplemented'});
+    Card.create(req.body)
+        .then(card => res.status(201).json(card))
+        .catch(err => next(err));
 }
 
 module.exports.edit = (req, res, next) => {
