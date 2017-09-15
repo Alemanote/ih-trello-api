@@ -5,11 +5,13 @@ module.exports.getAll = (req, res, next) => {
     List.find()
         .populate('cards')
         .then(lists => res.json(lists))
-        .catch(err => next(err));
+        .catch(err => next(err) );
 }
 
 module.exports.create = (req, res, next) => {
-    res.status(501).json({ message: 'Unimplemented' });
+    List.create(req.body)
+        .then(list => res.status(201).json(list))
+        .catch(err => next(err) );
 }
 
 module.exports.edit = (req, res, next) => {

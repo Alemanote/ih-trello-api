@@ -6,7 +6,10 @@ const listSchema = new mongoose.Schema({
         require: true,
         required: 'List needs a title'
     },
-    position: Number,
+    position: {
+        type: Number,
+        default: 0
+    },
     cards: [
         {
             type: mongoose.Schema.Types.ObjectId,
