@@ -1,7 +1,7 @@
 // Configuration options: https://www.npmjs.com/package/cors#configuration-options
 
 // TODO: user .env vars
-const originsAllowed = [
+const originsAllowed = process.env.CORS_ORIGINS || [
     'http://localhost:3000',
     'http://localhost:4200'
 ];

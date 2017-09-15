@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const dbName = 'ih-trello';
-const dbUri = `mongodb://localhost/${dbName}`;
+const dbUri = process.env.DB_MONGO_URI || `mongodb://localhost/${dbName}`;
 
 mongoose.connect(dbUri, { useMongoClient: true });
 mongoose.Promise = Promise; 

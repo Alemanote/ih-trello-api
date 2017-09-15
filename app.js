@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var mongoose = require('mongoose')
 
+require('dotenv').load();
 require('./configs/db.config');
 var corsConfig = require('./configs/cors.config');
 
