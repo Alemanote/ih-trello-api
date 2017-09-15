@@ -1,4 +1,5 @@
 mongoose = require('mongoose');
+const _ = require('lodash');
 const List = require('../models/list.model');
 const Card = require('../models/card.model');
 
@@ -16,7 +17,18 @@ module.exports.create = (req, res, next) => {
 }
 
 module.exports.edit = (req, res, next) => {
-    res.status(501).json({ message: 'Unimplemented' });
+    List.findById(req.params.id)
+        .then(list => {
+            if (list) {
+                _.merge(list, req.body);
+                list.save()
+                    .then(list => res.status(200).json(list))
+                    .catch(err => next(err));
+            } else {
+                res.status(404).json({ message: 'List not found' })
+            }
+        })
+        .catch(err => next(err));
 }
 
 module.exports.remove = (req, res, next) => {
