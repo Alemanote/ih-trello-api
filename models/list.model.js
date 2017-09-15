@@ -13,7 +13,8 @@ const listSchema = new mongoose.Schema({
     cards: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Card'
+            ref: 'Card',
+            default: []
         }
     ]
 }, { timestamps: true });

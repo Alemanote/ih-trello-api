@@ -1,5 +1,6 @@
 mongoose = require('mongoose');
 const List = require('../models/list.model');
+const Card = require('../models/card.model');
 
 module.exports.getAll = (req, res, next) => {
     List.find()
