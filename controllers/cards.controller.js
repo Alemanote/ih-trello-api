@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 const Card = require('../models/card.model');
+const List = require('../models/list.model');
 
 module.exports.create = (req, res, next) => {
     Card.create(req.body)
@@ -24,7 +25,22 @@ module.exports.edit = (req, res, next) => {
 }
 
 module.exports.move = (req, res, next) => {
-    res.status(501).json({ message: 'Unimplemented' });
+    const cardId = req.params.id;
+    const from = req.body.from;
+    const to = req.body.to;
+
+    Card.findByIdAndUpdate(cardId, { $set: { list: to }})
+        .then(card => {
+            if (card) {
+                return Promise.all([
+                    List.findByIdAndUpdate(from, { $pull: { cards: cardId } }, { new: true }).populate('cards'),
+                    List.findByIdAndUpdate(to, { $addToSet: { cards: cardId } }, { new: true }).populate('cards')])
+                    .then(lists => res.status(201).json(lists))
+                    .catch(err => next(err));
+            } else {
+                res.status(404).json({ message: 'Card not found' });
+            }
+        })
 }
 
 module.exports.remove = (req, res, next) => {
